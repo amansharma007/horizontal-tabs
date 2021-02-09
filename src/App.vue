@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Horizontal Tabs</h1>
     <tabs>
-      <tab title="Tab 1"> Content for 1st tab. </tab>
+      <tab title="Tab 1" :active="true"> Content for 1st tab. </tab>
       <tab title="Tab 2"> Content for 2nd tab. </tab>
     </tabs>
   </div>
@@ -29,5 +29,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

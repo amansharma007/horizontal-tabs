@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isTabActive" class="tab__body">
     <slot></slot>
   </div>
 </template>
@@ -10,16 +10,30 @@ export default {
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
+    },
+    active: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      active: true,
+      isTabActive: false
     };
   },
+  mounted() {
+    this.isTabActive = this.active
+  }
 };
 </script>
 
-<style>
+<style lang="css">
+/* Visible Tab Body */
+.tab__body {
+  margin: 10px;
+  border: 1px dotted lightgray;
+  padding: 10px;
+  font-size: 30px;
+}
 </style>
