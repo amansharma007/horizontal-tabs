@@ -49,31 +49,40 @@ export default {
 */
 /* Tabs */
 .tabs {
-  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* Tabs Navigation Bar */
 .tab__nav {
-  --border_color: black;
   display: flex;
-  border-bottom: 1px solid var(--border_color);
+  background: #f6f6f6;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab__nav::-webkit-scrollbar {
+  display: none;
 }
 
 /* Tabs Navigation Item */
 .nav__item {
   display: block;
-  padding: 10px 20px;
+  padding: 10px 40px;
   cursor: pointer;
   font-size: 14px;
+  color: #a4a3a4;
+  user-select: none;
 }
 .nav__item:hover {
-  background: lightgrey;
+  background: rgb(236, 236, 236);
 }
 .nav__item--active {
-  --active-border-color: blue;
-  margin-bottom: -1px;
+  --active-border-color: #009cfc;
+  color: #444444;
+  font-weight: 500;
   border-bottom: 2px solid var(--active-border-color);
 }
 </style>

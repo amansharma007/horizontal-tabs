@@ -2,8 +2,14 @@
   <div id="app">
     <h1>Horizontal Tabs</h1>
     <tabs>
-      <tab title="Tab 1" :active="true"> Content for 1st tab. </tab>
-      <tab title="Tab 2"> Content for 2nd tab. </tab>
+      <tab
+        v-for="{ id, title, active } in tabsToShow"
+        :key="id"
+        :title="title"
+        :active="active"
+      >
+        Tab {{ id }} contents
+      </tab>
     </tabs>
   </div>
 </template>
@@ -18,6 +24,52 @@ export default {
     Tabs,
     Tab,
   },
+  data() {
+    return {
+      tabsToShow: [
+        {
+          id: 1,
+          title: "Tab1",
+          active: true,
+        },
+        {
+          id: 2,
+          title: "Tab2",
+          active: false,
+        },
+        {
+          id: 3,
+          title: "Tab3",
+          active: false,
+        },
+        {
+          id: 4,
+          title: "Tab4",
+          active: false,
+        },
+        {
+          id: 5,
+          title: "Tab5",
+          active: false,
+        },
+        {
+          id: 6,
+          title: "Tab6",
+          active: false,
+        },
+        {
+          id: 7,
+          title: "Tab7",
+          active: false,
+        },
+        {
+          id: 8,
+          title: "Tab8",
+          active: false,
+        },
+      ],
+    };
+  },
 };
 </script>
 
@@ -26,10 +78,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  max-width: 80vw;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
