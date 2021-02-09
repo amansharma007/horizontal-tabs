@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Horizontal Tabs</h1>
+    <tabs>
+      <tab>
+        Content for 1st tab.
+      </tab>
+      <tab>
+        Content for 1st tab.
+      </tab>
+    </tabs>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Tabs from './components/Tabs.vue'
+import Tab from './components/Tab.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Tabs,
+    Tab
   }
 }
 </script>
