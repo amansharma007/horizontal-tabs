@@ -1,6 +1,6 @@
 <template>
   <div class="tabs">
-    <div class="tab__nav">
+    <div v-dragscroll class="tab__nav">
       <span
         v-for="({ title, isTabActive }, index) in tabs"
         :key="index"
@@ -16,8 +16,13 @@
 </template>
 
 <script>
+import { dragscroll } from "vue-dragscroll";
+
 export default {
   name: "Tabs",
+  directives: {
+    dragscroll,
+  },
   data() {
     return {
       tabs: {},
