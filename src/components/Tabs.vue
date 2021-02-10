@@ -79,7 +79,7 @@ export default {
       tabToClose: {},
       showModal: false,
       showLeftChevron: false,
-      showRightChevron: true,
+      showRightChevron: false,
     };
   },
   created() {
@@ -102,8 +102,8 @@ export default {
   methods: {
     initTabs() {
       /**
-       * `this.tabs` is assigned the list of `tab` components,
-       * which are also the children of this component.
+       * `this.tabs` is assigned the list of `<tab>` components,
+       * which are also the children of this component, via slots.
        */
       this.tabs = this.$children.filter(
         ({ $options }) => $options.name === "Tab"
@@ -118,20 +118,17 @@ export default {
       this.observer.observe(this.lastNavItem);
     },
     onNavScrollObserve(entries) {
-      /**
-       * Callback function for IntersectionObserver
-       */
       entries.forEach((entry) => {
-        if (entry.target == this.firstNavItem) {
-          this.showLeftChevron = !entry.isIntersecting;
-        } else {
+        if (entry.target == this.lastNavItem) {
           this.showRightChevron = !entry.isIntersecting;
+        } else {
+          this.showLeftChevron = !entry.isIntersecting;
         }
       });
     },
     onTabAdded() {
       /**
-       * This function is to be used in tab component's parent,
+       * This function is to be used in `<tabs>` component's parent,
        * to refresh the tabs array here (which is `this.$children`).
        * This is done because `this.$children` is not reactive by default.
        */

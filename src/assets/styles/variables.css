@@ -1,7 +1,12 @@
 :root {
+  /* Overall colors */
   --white: #ffffff;
-  --primary-color: #009cfc;
-  --danger-color: #cc3a00;
+
+  /* Text colors */
   --faded-text: #a4a3a4;
   --default-text: #444444;
+
+  /* Theme colors */
+  --danger-color: #cc3a00;
+  --primary-color: #009cfc;
 }
