@@ -1,7 +1,8 @@
 <template>
   <div class="tabs">
+    {{ tabs2 }}
     <div class="tab__controls">
-      <span @click="move('left')" class="tab__icon">
+      <span @click="move('left')" class="controls__icon">
         <ChevronLeftIcon v-if="showLeftChevron" />
       </span>
       <div v-dragscroll class="tab__nav" ref="tab-nav">
@@ -10,9 +11,16 @@
           :key="index"
           ref="nav-item"
           class="nav__item"
-          :class="[`${isTabActive ? 'active' : ''}`]"
+          :class="[`${isTabActive ? 'nav__item--active' : ''}`]"
           @click="activateTab(index)"
         >
+          <span
+            @click.stop="onTabCloseInit(title, index)"
+            class="nav__item__close"
+            v-if="closable"
+          >
+            <XIcon />
+          </span>
           {{ title }}
         </span>
       </div>
@@ -20,19 +28,36 @@
         <ChevronRightIcon v-if="showRightChevron" />
       </span>
     </div>
+
     <slot></slot>
+
+    <modal v-show="showModal">
+      <h3 slot="header">Close {{ tabToClose.title }}</h3>
+      <p slot="body">Are you sure you want to close {{ tabToClose.title }}?</p>
+      <template slot="footer">
+        <button class="button button--primary" @click="showModal = false">
+          No
+        </button>
+        <button class="button button--danger" @click="onTabCloseConfirm()">
+          Yes
+        </button>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from "@/components/Modal.vue";
 import { dragscroll } from "vue-dragscroll";
-import { ChevronRightIcon, ChevronLeftIcon } from "vue-feather-icons";
+import { ChevronRightIcon, ChevronLeftIcon, XIcon } from "vue-feather-icons";
 
 export default {
   name: "Tabs",
   components: {
     ChevronRightIcon,
     ChevronLeftIcon,
+    XIcon,
+    Modal,
   },
   directives: {
     dragscroll,
@@ -42,23 +67,40 @@ export default {
       type: Boolean,
       default: false,
     },
+    closable: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       tabs: [],
       showLeftChevron: false,
       showRightChevron: true,
+      showModal: false,
+      tabToClose: {},
     };
   },
   created() {
     window.addEventListener("load", this.initObserver);
   },
   mounted() {
-    this.tabs = this.$children.filter(
-      ({ $options }) => $options.name === "Tab"
-    );
+    this.initTabs();
+  },
+  watch: {
+    // $children: {
+    //   handler() {
+    //     console.log(
+    //       this.$children.filter(({ $options }) => $options.name === "Tab")
+    //     );
+    //   },
+    //   deep: true,
+    // },
   },
   computed: {
+    tabs2() {
+      return this.$slots.default.length;
+    },
     tabNav() {
       return this.$refs["tab-nav"];
     },
@@ -70,6 +112,11 @@ export default {
     },
   },
   methods: {
+    initTabs() {
+      this.tabs = this.$children.filter(
+        ({ $options }) => $options.name === "Tab"
+      );
+    },
     initObserver() {
       this.observer = new IntersectionObserver(this.onObserve, {
         root: this.$el,
@@ -77,6 +124,17 @@ export default {
       });
       this.observer.observe(this.firstNavItem);
       this.observer.observe(this.lastNavItem);
+    },
+    onTabCloseInit(title, index) {
+      this.showModal = true;
+      this.tabToClose = {
+        title,
+        index,
+      };
+    },
+    onTabCloseConfirm() {
+      this.$emit("close-tab", this.tabToClose.index);
+      this.showModal = false;
     },
     onObserve(entries) {
       entries.forEach((entry) => {
@@ -110,66 +168,5 @@ export default {
 </script>
 
 <style lang="css">
-/* TODO: 
-- Add the colors to variables
-- Segregate all the css into files which will be stored in assets folder.  
-*/
-/* Tabs */
-.tabs {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tab__controls {
-  display: flex;
-  align-items: center;
-  background: #f6f6f6;
-}
-
-/* Tabs Navigation Bar */
-.tab__nav {
-  display: flex;
-  align-items: center;
-  overflow-x: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  margin-bottom: -2px;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.tab__nav::-webkit-scrollbar {
-  display: none;
-}
-
-/* Tabs Navigation Item */
-.nav__item {
-  display: block;
-  padding: 10px 40px;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-  color: #a4a3a4;
-  user-select: none;
-}
-.nav__item:hover {
-  background: rgb(236, 236, 236);
-}
-.active {
-  --active-border-color: #009cfc;
-  color: #444444;
-  font-weight: 500;
-  margin-bottom: 2px;
-  border-bottom: 2px solid var(--active-border-color);
-}
-
-.tab__icon {
-  display: flex;
-  width: 30px;
-  align-items: center;
-  color: #a4a3a4;
-  cursor: pointer;
-}
-.tab__icon:hover {
-  color: #444444;
-}
+@import "../assets/styles/tabs.css";
 </style>

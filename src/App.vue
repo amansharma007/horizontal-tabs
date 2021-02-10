@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Draggable Horizontal Tabs</h1>
-    <tabs :show-controls="true">
+    <tabs :show-controls="true" :closable="true" @close-tab="closeTab">
       <tab
         v-for="{ id, title, active } in tabsToShow"
         :key="id"
@@ -81,26 +81,16 @@ export default {
       ],
     };
   },
+  methods: {
+    closeTab(tabIndex) {
+      this.tabsToShow = this.tabsToShow.filter(
+        (elem, index) => index !== tabIndex
+      );
+    },
+  },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Visible Tab Body */
-.tab__body {
-  margin: 25px 15px;
-  border: 1px dotted lightgray;
-  padding: 15px 10px;
-  font-size: 30px;
-}
+<style lang="css">
+@import "./assets/styles/app.css";
 </style>

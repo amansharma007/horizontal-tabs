@@ -1,0 +1,92 @@
+/* Tabs Container */
+.tabs {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tabs Navigation Bar */
+.tab__nav {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  margin-bottom: -2px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab__nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tabs Navigation Item */
+.nav__item {
+  transition: 0.3s all;
+  display: block;
+  position: relative;
+  padding: 10px 40px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--faded-text);
+  user-select: none;
+}
+.nav__item:hover {
+  background: rgb(236, 236, 236);
+}
+.nav__item--active {
+  color: var(--default-text);
+  font-weight: 500;
+  margin-bottom: 2px;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Tab Close Icon */
+.nav__item:hover .nav__item__close svg{
+  opacity: 1;
+}
+.nav__item.nav__item--active .nav__item__close svg {
+  opacity: 1;
+}
+
+.nav__item__close svg:hover {
+  background-color: var(--primary-color);
+  color: var(--default-text);
+}
+.nav__item__close svg {
+  transition: 0.3s opacity;
+  opacity: 0;
+  border-radius: 50%;
+  padding: 2px;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* Tabs Controls */
+.tab__controls {
+  display: flex;
+  align-items: center;
+  background: #f6f6f6;
+}
+
+.controls__icon {
+  display: flex;
+  width: 30px;
+  align-items: center;
+  color: var(--faded-text);
+  cursor: pointer;
+}
+.controls__icon:hover {
+  color: var(--default-text);
+}
+
+/* Tab Body */
+.tab__body {
+  margin: 25px 15px;
+  border: 1px dotted lightgray;
+  padding: 15px 10px;
+  font-size: 30px;
+}
