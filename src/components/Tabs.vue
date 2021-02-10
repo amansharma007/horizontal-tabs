@@ -1,7 +1,6 @@
 <template>
   <div class="tabs">
-    {{ tabs2 }}
-    <div class="tab__controls">
+    <div class="tab__row">
       <span @click="move('left')" class="controls__icon">
         <ChevronLeftIcon v-if="showLeftChevron" />
       </span>
@@ -24,7 +23,7 @@
           {{ title }}
         </span>
       </div>
-      <span @click="move('right')" class="tab__icon">
+      <span @click="move('right')" class="controls__icon">
         <ChevronRightIcon v-if="showRightChevron" />
       </span>
     </div>
@@ -87,20 +86,7 @@ export default {
   mounted() {
     this.initTabs();
   },
-  watch: {
-    // $children: {
-    //   handler() {
-    //     console.log(
-    //       this.$children.filter(({ $options }) => $options.name === "Tab")
-    //     );
-    //   },
-    //   deep: true,
-    // },
-  },
   computed: {
-    tabs2() {
-      return this.$slots.default.length;
-    },
     tabNav() {
       return this.$refs["tab-nav"];
     },
@@ -135,6 +121,14 @@ export default {
     onTabCloseConfirm() {
       this.$emit("close-tab", this.tabToClose.index);
       this.showModal = false;
+      this.$nextTick().then(() => {
+        this.initTabs();
+      });
+    },
+    onTabAdded() {
+      this.$nextTick().then(() => {
+        this.initTabs();
+      });
     },
     onObserve(entries) {
       entries.forEach((entry) => {
