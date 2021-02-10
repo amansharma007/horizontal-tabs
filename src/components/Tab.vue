@@ -1,5 +1,5 @@
 <template>
-  <div class="tab" ref="tab" v-if="isTabActive">
+  <div v-if="isTabActive">
     <slot></slot>
   </div>
 </template>
@@ -14,16 +14,16 @@ export default {
     },
     active: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      isTabActive: false
+      isTabActive: false,
     };
   },
   mounted() {
-    this.isTabActive = this.active
-  }
+    this.isTabActive = this.active;
+  },
 };
 </script>

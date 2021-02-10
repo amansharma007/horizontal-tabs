@@ -17,7 +17,7 @@
         :active="active"
         class="tab__body"
       >
-        "{{ title }}" contents
+        "{{ title }}" Content
       </tab>
     </tabs>
   </div>
@@ -39,17 +39,15 @@ export default {
     };
   },
   created() {
+    // Generate a list of tabs.
     for (let i = 1; i <= 8; i++) {
-      this.tabsToShow.push({
-        id: i,
-        title: `Tab ${i}`,
-        active: false,
-      });
+      this.tabsToShow.push(this.getNewTab(i, `Tab ${i}`, false));
     }
+    // Set first tab as active by default.
     this.tabsToShow[0].active = true;
   },
   methods: {
-    newTab(id, title, active) {
+    getNewTab(id, title, active) {
       return {
         id,
         title,
@@ -58,7 +56,7 @@ export default {
     },
     addTab() {
       this.tabsToShow.push(
-        this.newTab(this.tabsToShow.length + 1, "New Tab", false)
+        this.getNewTab(this.tabsToShow.length + 1, "New Tab", false)
       );
       this.$refs["tabs"].onTabAdded();
     },
