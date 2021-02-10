@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <h1>Horizontal Tabs</h1>
-    <tabs>
+    <h1>Draggable Horizontal Tabs</h1>
+    <tabs :show-controls="true">
       <tab
         v-for="{ id, title, active } in tabsToShow"
         :key="id"
         :title="title"
         :active="active"
+        class="tab__body"
       >
         Tab {{ id }} contents
       </tab>
@@ -67,6 +68,16 @@ export default {
           title: "Tab8",
           active: false,
         },
+        {
+          id: 9,
+          title: "Tab9",
+          active: false,
+        },
+        {
+          id: 10,
+          title: "Tab10",
+          active: false,
+        },
       ],
     };
   },
@@ -83,5 +94,13 @@ export default {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Visible Tab Body */
+.tab__body {
+  margin: 25px 15px;
+  border: 1px dotted lightgray;
+  padding: 15px 10px;
+  font-size: 30px;
 }
 </style>

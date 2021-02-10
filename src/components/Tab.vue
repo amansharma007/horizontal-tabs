@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isTabActive" class="tab__body">
+  <div v-if="isTabActive">
     <slot></slot>
   </div>
 </template>
@@ -27,13 +27,3 @@ export default {
   }
 };
 </script>
-
-<style lang="css">
-/* Visible Tab Body */
-.tab__body {
-  margin: 10px;
-  border: 1px dotted lightgray;
-  padding: 10px;
-  font-size: 30px;
-}
-</style>
