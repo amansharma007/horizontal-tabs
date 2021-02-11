@@ -1,5 +1,6 @@
 # Horizontal Draggable Tabs
 
+![Main Image](https://i.imgur.com/fqIQqdK.png)
 Check out [Live Demo](https://amansharma007.github.io/horizontal-tabs/)
 
 ## Usage
