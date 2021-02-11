@@ -30,12 +30,15 @@
 /* Tabs Navigation Item */
 .nav__item {
   display: block;
+  min-width: 120px;
+  text-align: center;
   line-height: 1;
   cursor: pointer;
   font-size: 14px;
   user-select: none;
   position: relative;
-  padding: 10px 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   white-space: nowrap;
   color: var(--faded-text);
   transition: 0.3s background-color;
