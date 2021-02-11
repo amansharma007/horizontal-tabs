@@ -15,7 +15,6 @@
           :class="[`${isTabActive ? 'nav__item--active' : ''}`]"
           v-for="({ title, isTabActive }, index) in tabs"
           :key="index"
-          ref="nav-item"
           @click="activateTab(index)"
         >
           <div
@@ -100,12 +99,6 @@ export default {
     tabNav() {
       return this.$refs["tab-nav"];
     },
-    firstNavItem() {
-      return this.$refs["nav-item"][0];
-    },
-    lastNavItem() {
-      return this.$refs["nav-item"][this.$refs["nav-item"].length - 1];
-    },
   },
   methods: {
     initTabs() {
@@ -122,17 +115,21 @@ export default {
         root: this.$el,
         threshold: 1,
       });
-      this.observer.observe(this.firstNavItem);
-      this.observer.observe(this.lastNavItem);
+      this.observeFirstAndLastNavItems();
     },
     onNavScrollObserve(entries) {
       entries.forEach((entry) => {
-        if (entry.target == this.lastNavItem) {
+        if (entry.target == document.querySelector(".nav__item:last-child")) {
           this.showRightChevron = !entry.isIntersecting;
-        } else {
+        }
+        if (entry.target == document.querySelector(".nav__item:first-child")) {
           this.showLeftChevron = !entry.isIntersecting;
         }
       });
+    },
+    observeFirstAndLastNavItems() {
+      this.observer.observe(document.querySelector(".nav__item:first-child"));
+      this.observer.observe(document.querySelector(".nav__item:last-child"));
     },
     onTabAdded() {
       /**
@@ -146,12 +143,7 @@ export default {
         })
         .then(() => {
           this.scrollToLastNavItem();
-          this.observer.observe(
-            document.querySelector(".nav__item:first-child")
-          );
-          this.observer.observe(
-            document.querySelector(".nav__item:last-child")
-          );
+          this.observeFirstAndLastNavItems();
         });
     },
     scrollToLastNavItem() {

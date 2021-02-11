@@ -43,6 +43,10 @@ import Tabs from "./components/Tabs.vue";
 import Tab from "./components/Tab.vue";
 import Modal from "./components/Modal.vue";
 import { PlusIcon } from "vue-feather-icons";
+import { v4 as uuid } from "uuid";
+
+const MAX_TABS = 10;
+const INITIAL_TABS = 3;
 
 export default {
   name: "App",
@@ -60,8 +64,8 @@ export default {
   },
   created() {
     // Generate a list of tabs.
-    for (let i = 1; i <= 8; i++) {
-      this.tabsToShow.push(this.getNewTab(i, `Tab ${i}`, false));
+    for (let i = 1; i <= INITIAL_TABS; i++) {
+      this.tabsToShow.push(this.getNewTab(uuid(), `Tab ${i}`, false));
     }
     // Set first tab as active by default.
     this.tabsToShow[0].active = true;
@@ -75,10 +79,8 @@ export default {
       };
     },
     addTab() {
-      if (this.tabsToShow.length < 10) {
-        this.tabsToShow.push(
-          this.getNewTab(this.tabsToShow.length + 1, "New Tab", false)
-        );
+      if (this.tabsToShow.length < MAX_TABS) {
+        this.tabsToShow.push(this.getNewTab(uuid(), "New Tab", false));
         this.$refs["tabs"].onTabAdded();
       } else {
         this.showModal = true;
