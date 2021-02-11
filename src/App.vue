@@ -4,7 +4,6 @@
     <tabs
       ref="tabs"
       :closable="true"
-      :show-controls="true"
       @close-tab="closeTab"
     >
       <tab
@@ -100,5 +99,13 @@ export default {
 
 #add-tab-icon {
   display: flex;
+}
+
+/* Tab Body */
+.tab__body {
+  font-size: 30px;
+  margin: 25px 15px;
+  padding: 15px 10px;
+  border: 1px dotted lightgray;
 }
 </style>

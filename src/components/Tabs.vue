@@ -5,7 +5,7 @@
         <slot name="prefix"></slot>
       </div>
 
-      <div class="controls__icon" @click="scroll('left')">
+      <div v-if="showControls" class="controls__icon" @click="scroll('left')">
         <ChevronLeftIcon v-if="showLeftChevron" />
       </div>
 
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="controls__icon" @click="scroll('right')">
+      <div v-if="showControls" class="controls__icon" @click="scroll('right')">
         <ChevronRightIcon v-if="showRightChevron" />
       </div>
 
@@ -73,7 +73,7 @@ export default {
   props: {
     showControls: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     closable: {
       type: Boolean,
