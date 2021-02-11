@@ -11,6 +11,11 @@
   margin-right: auto;
 }
 
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .button {
   cursor: pointer;
   border: none;

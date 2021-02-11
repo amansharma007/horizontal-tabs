@@ -1,13 +1,10 @@
 <template>
   <div id="app">
     <h1>Draggable Horizontal Tabs</h1>
-    <button id="add-tab-btn" class="button button--primary" @click="addTab()">
-      Add Tab
-    </button>
     <tabs
       ref="tabs"
-      :show-controls="true"
       :closable="true"
+      :show-controls="true"
       @close-tab="closeTab"
     >
       <tab
@@ -19,23 +16,46 @@
       >
         "{{ title }}" Content
       </tab>
+      <template slot="suffix">
+        <div id="add-tab-icon" @click="addTab()">
+          <PlusIcon />
+        </div>
+      </template>
     </tabs>
+
+    <modal v-show="showModal">
+      <h3 slot="header">Can't add more.</h3>
+      <p slot="body">
+        You are not allowed to add more than 10 tabs. If you want to add more
+        tabs then close a few and continue.
+      </p>
+      <template slot="footer">
+        <button class="button button--primary" @click="showModal = false">
+          Ok
+        </button>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
 import Tabs from "./components/Tabs.vue";
 import Tab from "./components/Tab.vue";
+import Modal from "./components/Modal.vue";
+import { PlusIcon } from "vue-feather-icons";
 
 export default {
   name: "App",
   components: {
     Tabs,
     Tab,
+    Modal,
+    PlusIcon,
   },
   data() {
     return {
       tabsToShow: [],
+      showModal: false,
     };
   },
   created() {
@@ -55,10 +75,14 @@ export default {
       };
     },
     addTab() {
-      this.tabsToShow.push(
-        this.getNewTab(this.tabsToShow.length + 1, "New Tab", false)
-      );
-      this.$refs["tabs"].onTabAdded();
+      if (this.tabsToShow.length < 10) {
+        this.tabsToShow.push(
+          this.getNewTab(this.tabsToShow.length + 1, "New Tab", false)
+        );
+        this.$refs["tabs"].onTabAdded();
+      } else {
+        this.showModal = true;
+      }
     },
     closeTab(tabIndex) {
       this.tabsToShow = this.tabsToShow.filter(
@@ -72,7 +96,7 @@ export default {
 <style lang="css">
 @import "./assets/styles/app.css";
 
-#add-tab-btn {
-  margin-bottom: 10px;
+#add-tab-icon {
+  display: flex;
 }
 </style>

@@ -8,7 +8,7 @@
 .tab__row {
   display: flex;
   align-items: center;
-  background: #f6f6f6;
+  background: var(--lightest-grey);
   max-width: max-content;
 }
 

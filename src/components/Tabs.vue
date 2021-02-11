@@ -1,6 +1,10 @@
 <template>
   <div class="tabs">
     <div class="tab__row">
+      <div class="controls__icon" v-if="$slots['prefix']">
+        <slot name="prefix"></slot>
+      </div>
+
       <div class="controls__icon" @click="scroll('left')">
         <ChevronLeftIcon v-if="showLeftChevron" />
       </div>
@@ -16,7 +20,7 @@
         >
           <div
             class="nav__item__close"
-            v-if="closable"
+            v-if="closable && tabs.length > 1"
             @click.stop="openTabCloseModal(title, index)"
           >
             <XIcon />
@@ -27,6 +31,10 @@
 
       <div class="controls__icon" @click="scroll('right')">
         <ChevronRightIcon v-if="showRightChevron" />
+      </div>
+
+      <div class="controls__icon" v-if="$slots['suffix']">
+        <slot name="suffix"></slot>
       </div>
     </div>
 
@@ -138,6 +146,9 @@ export default {
         })
         .then(() => {
           this.scrollToLastNavItem();
+          this.observer.observe(
+            document.querySelector(".nav__item:first-child")
+          );
           this.observer.observe(
             document.querySelector(".nav__item:last-child")
           );
